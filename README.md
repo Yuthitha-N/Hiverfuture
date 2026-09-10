@@ -17,7 +17,7 @@ Follow these exact steps to reproduce all headline results and launch the intera
 
 ### 1. Clone & Setup Environment
 ```bash
-git clone https://github.com/your-username/Hiverfuture.git
+git clone https://github.com/Yuthitha-N/Hiverfuture.git
 cd Hiverfuture
 
 # (Optional) Create and activate virtual environment

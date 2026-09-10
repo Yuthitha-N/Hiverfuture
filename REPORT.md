@@ -1,10 +1,11 @@
 # Technical Architecture & Evaluation Report
 ## Autonomous AI Customer Support Agent for AppleSupport
 
-**Project**: Hiverfuture AI Support System  
+**Project**: Hiver Future AI Support System  
 **Target Brand**: AppleSupport  
 **Dataset**: Customer Support on Twitter (`thoughtvector/customer-support-on-twitter`)  
-**Repository**: `Hiverfuture`  
+**GitHub Repository**: [https://github.com/Yuthitha-N/Hiverfuture](https://github.com/Yuthitha-N/Hiverfuture)  
+**Live Deployed Web Application**: [https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app](https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app)  
 
 ---
 

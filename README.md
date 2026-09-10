@@ -3,7 +3,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Tests Passing](https://img.shields.io/badge/tests-12%20passed-brightgreen.svg)]()
 [![Reproducible <15min](https://img.shields.io/badge/reproducible-%3C15%20min-success.svg)]()
-[![Streamlit App](https://img.shields.io/badge/Streamlit%20App-Live-FF4B4B.svg)](https://hiverfuture.streamlit.app)
+[![Streamlit App](https://img.shields.io/badge/Streamlit%20App-Live-FF4B4B.svg)](https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Yuthitha--N%2FHiverfuture-181717.svg)](https://github.com/Yuthitha-N/Hiverfuture)
 
 An end-to-end, production-grade, and explainable AI Customer Support Agent built for **AppleSupport** using the Kaggle *Customer Support on Twitter* dataset (`thoughtvector/customer-support-on-twitter`).
@@ -14,9 +14,9 @@ The system ingests customer tweets, classifies their support intent into 8 domai
 
 ## 🌐 Live Deployment & Interactive Demo
 
-- **Live Streamlit Cloud URL**: [https://hiverfuture.streamlit.app](https://hiverfuture.streamlit.app)
-- **Local Dev Server**: `http://localhost:8501` (via `streamlit run app/streamlit_app.py`)
+- **Live Deployed Web App**: [https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app](https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app)
 - **GitHub Repository**: [https://github.com/Yuthitha-N/Hiverfuture](https://github.com/Yuthitha-N/Hiverfuture)
+- **Local Dev Server**: `http://localhost:8501` (via `streamlit run app/streamlit_app.py`)
 
 ---
 

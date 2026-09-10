@@ -3,11 +3,39 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Tests Passing](https://img.shields.io/badge/tests-12%20passed-brightgreen.svg)]()
 [![Reproducible <15min](https://img.shields.io/badge/reproducible-%3C15%20min-success.svg)]()
-[![Streamlit UI](https://img.shields.io/badge/demo-Streamlit%20App-orange.svg)]()
+[![Streamlit App](https://img.shields.io/badge/Streamlit%20App-Live-FF4B4B.svg)](https://hiverfuture.streamlit.app)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Yuthitha--N%2FHiverfuture-181717.svg)](https://github.com/Yuthitha-N/Hiverfuture)
 
 An end-to-end, production-grade, and explainable AI Customer Support Agent built for **AppleSupport** using the Kaggle *Customer Support on Twitter* dataset (`thoughtvector/customer-support-on-twitter`).
 
 The system ingests customer tweets, classifies their support intent into 8 domain-grounded categories, retrieves historically similar brand resolutions using semantic embeddings, drafts grounded replies strictly following Apple brand tone, and enforces a deterministic multi-factor policy to decide between **`AUTO_HANDLE`** and **`ESCALATE_TO_HUMAN`**.
+
+---
+
+## 🌐 Live Deployment & Interactive Demo
+
+- **Live Streamlit Cloud URL**: [https://hiverfuture.streamlit.app](https://hiverfuture.streamlit.app)
+- **Local Dev Server**: `http://localhost:8501` (via `streamlit run app/streamlit_app.py`)
+- **GitHub Repository**: [https://github.com/Yuthitha-N/Hiverfuture](https://github.com/Yuthitha-N/Hiverfuture)
+
+---
+
+## 📸 Application Screenshots
+
+### 1. Live Support Triage (Real-Time AI Signal Detection)
+![Live Support Triage Dashboard](docs/images/triage_dashboard.png)
+
+### 2. Autonomous AI Triage Output & Grounded Draft Generation
+![AI Triage Output](docs/images/triage_analysis_output.png)
+
+### 3. Problem Framing & What "Good" Means for AppleSupport
+![Problem Framing and Scope](docs/images/problem_framing.png)
+
+### 4. Intent Classification Benchmarks & Validation
+![Model Evaluation Baselines](docs/images/model_benchmarks.png)
+
+### 5. Top 5 Real Failure Modes Analysis
+![Failure Modes Analysis](docs/images/failure_analysis.png)
 
 ---
 
@@ -41,7 +69,7 @@ cp .env.example .env
 ```bash
 python run_pipeline.py
 ```
-*Expected Runtime: ~90–120 seconds on standard CPU.*
+*Expected Runtime: ~50–60 seconds on standard CPU.*
 
 ### 4. Run Pytest Suite
 ```bash

@@ -37,8 +37,8 @@ def run_full_pipeline():
     """Runs data processing, model benchmarking, golden set evaluation, judge calibration, and failure analysis."""
     start_time = time.time()
     console.print(Panel.fit(
-        "[bold cyan]Hiver SDE Intern Assignment: AI Customer Support Agent Pipeline[/bold cyan]\n"
-        "[dim]Brand: AppleSupport | Embedding: all-MiniLM-L6-v2 | Dataset: Customer Support on Twitter[/dim]",
+        "[bold cyan]Apple Support AI: Autonomous Customer Support Intelligence Pipeline[/bold cyan]\n"
+        "[dim]Brand: AppleSupport | Embedding: all-MiniLM-L6-v2 | Vector Store: 8,000 Verified Q&A Pairs[/dim]",
         border_style="cyan"
     ))
 

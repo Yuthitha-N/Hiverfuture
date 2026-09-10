@@ -1,9 +1,9 @@
-# Hiver SDE Intern Take-Home Project Report
-## AI Customer Support Agent for AppleSupport
+# Technical Architecture & Evaluation Report
+## Autonomous AI Customer Support Agent for AppleSupport
 
-**Author**: Machine Learning & Full-Stack Candidate  
+**Project**: Hiverfuture AI Support System  
 **Target Brand**: AppleSupport  
-**Dataset**: Kaggle Customer Support on Twitter (`thoughtvector/customer-support-on-twitter`)  
+**Dataset**: Customer Support on Twitter (`thoughtvector/customer-support-on-twitter`)  
 **Repository**: `Hiverfuture`  
 
 ---

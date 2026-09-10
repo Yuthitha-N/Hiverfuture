@@ -1,4 +1,4 @@
-"""Streamlit Interactive Web Application for Apple Support AI Agent."""
+"""Streamlit Interactive Web Application for Apple Support AI Agent with Light/Dark Theme & Balanced Layout."""
 import os
 import sys
 import json
@@ -23,39 +23,115 @@ from src.evaluation.llm_judge import LLMJudge
 
 # Configure Page
 st.set_page_config(
-    page_title="Apple Support AI Agent | Autonomous Customer Support Intelligence",
+    page_title="AppleSupport AI | Autonomous Customer Support Intelligence",
     page_icon="🍏",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom Styling with Video / Animated Ambient Mesh Background & Glassmorphism
-st.markdown("""
+# ---------------------------------------------------------
+# Theme State & CSS Definition
+# ---------------------------------------------------------
+if "theme" not in st.session_state:
+    st.session_state.theme = "Dark"
+
+# Theme Toggle in Sidebar
+with st.sidebar:
+    st.markdown("### 🎨 Appearance & Theme")
+    theme_choice = st.radio(
+        "Select Theme Mode:",
+        ["🌙 Dark Mode", "☀️ Light Mode"],
+        index=0 if st.session_state.theme == "Dark" else 1,
+        horizontal=True
+    )
+    is_dark = "Dark" in theme_choice
+    st.session_state.theme = "Dark" if is_dark else "Light"
+
+# Dynamic CSS Theme Variables
+if is_dark:
+    theme_vars = """
+        --bg-body: #0a0f1d;
+        --bg-card: rgba(19, 27, 46, 0.85);
+        --bg-card-hover: rgba(26, 36, 61, 0.95);
+        --border-card: rgba(255, 255, 255, 0.1);
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --accent-blue: #38bdf8;
+        --accent-blue-gradient: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #075985 100%);
+        --input-bg: rgba(15, 23, 42, 0.9);
+        --input-border: #334155;
+        --input-text: #f8fafc;
+        --badge-auto-bg: linear-gradient(135deg, #059669 0%, #047857 100%);
+        --badge-escalate-bg: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        --metric-bg: rgba(15, 23, 42, 0.7);
+        --step-box-bg: rgba(19, 27, 46, 0.9);
+        --evidence-bg: rgba(15, 23, 42, 0.8);
+        --shadow-elevation: 0 8px 32px rgba(0, 0, 0, 0.35);
+    """
+else:
+    theme_vars = """
+        --bg-body: #f8fafc;
+        --bg-card: rgba(255, 255, 255, 0.9);
+        --bg-card-hover: rgba(255, 255, 255, 1.0);
+        --border-card: rgba(226, 232, 240, 0.9);
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #94a3b8;
+        --accent-blue: #0284c7;
+        --accent-blue-gradient: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #075985 100%);
+        --input-bg: #ffffff;
+        --input-border: #cbd5e1;
+        --input-text: #0f172a;
+        --badge-auto-bg: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        --badge-escalate-bg: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        --metric-bg: #f1f5f9;
+        --step-box-bg: #ffffff;
+        --evidence-bg: #f8fafc;
+        --shadow-elevation: 0 6px 24px rgba(0, 0, 0, 0.06);
+    """
+
+st.markdown(f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
-    html, body, [class*="css"] {
+    :root {{
+        {theme_vars}
+    }}
+
+    html, body, [class*="css"], .stApp {{
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
+        background-color: var(--bg-body) !important;
+        color: var(--text-primary) !important;
+    }}
 
-    /* Ambient Animated Mesh Background */
-    .stApp {
-        background: radial-gradient(circle at 10% 20%, rgba(240, 246, 255, 0.8) 0%, rgba(255, 255, 255, 0.95) 90%),
-                    linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-    }
+    /* Global Input Overrides for Theme */
+    .stTextInput>div>div>input, .stTextArea>div>div>textarea {{
+        background-color: var(--input-bg) !important;
+        color: var(--input-text) !important;
+        border: 1px solid var(--input-border) !important;
+        border-radius: 10px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }}
+    .stSelectbox>div>div {{
+        background-color: var(--input-bg) !important;
+        color: var(--input-text) !important;
+        border: 1px solid var(--input-border) !important;
+        border-radius: 10px !important;
+    }}
 
-    /* Video / Ambient Dynamic Backdrop Simulation */
-    .ambient-header {
-        background: linear-gradient(135deg, #0a84ff 0%, #0051ba 50%, #002e7a 100%);
-        padding: 30px;
-        border-radius: 20px;
+    /* Ambient Header Banner */
+    .ambient-header {{
+        background: var(--accent-blue-gradient);
+        padding: 28px 32px;
+        border-radius: 18px;
         color: white;
-        margin-bottom: 25px;
-        box-shadow: 0 10px 30px rgba(0, 81, 186, 0.25);
+        margin-bottom: 24px;
+        box-shadow: 0 10px 30px rgba(2, 132, 199, 0.25);
         position: relative;
         overflow: hidden;
-    }
-    .ambient-header::before {
+    }}
+    .ambient-header::before {{
         content: '';
         position: absolute;
         top: -50%;
@@ -63,127 +139,162 @@ st.markdown("""
         width: 200%;
         height: 200%;
         background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
-        animation: pulseSlow 8s ease-in-out infinite alternate;
-    }
-    @keyframes pulseSlow {
-        0% { transform: scale(0.9) rotate(0deg); }
-        100% { transform: scale(1.1) rotate(10deg); }
-    }
+        animation: pulseSlow 9s ease-in-out infinite alternate;
+    }}
+    @keyframes pulseSlow {{
+        0% {{ transform: scale(0.9) rotate(0deg); }}
+        100% {{ transform: scale(1.1) rotate(10deg); }}
+    }}
 
-    .main-title {
-        font-size: 2.3rem;
+    .main-title {{
+        font-size: 2.1rem;
         font-weight: 800;
         letter-spacing: -0.5px;
         margin: 0;
         position: relative;
         z-index: 1;
-    }
-    .main-subtitle {
-        font-size: 1.05rem;
-        opacity: 0.9;
-        margin-top: 8px;
+        color: #ffffff !important;
+    }}
+    .main-subtitle {{
+        font-size: 1.0rem;
+        opacity: 0.92;
+        margin-top: 6px;
         font-weight: 400;
         position: relative;
         z-index: 1;
-    }
-    .status-pill {
+        color: #ffffff !important;
+    }}
+    .status-pill {{
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.18);
         backdrop-filter: blur(10px);
         padding: 6px 14px;
         border-radius: 30px;
-        font-size: 0.85rem;
+        font-size: 0.82rem;
         font-weight: 600;
         margin-top: 14px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff !important;
+    }}
 
-    /* Glassmorphism Cards */
-    .glass-card {
-        background: rgba(255, 255, 255, 0.85);
+    /* Balanced Card Container */
+    .balanced-card {{
+        background: var(--bg-card);
         backdrop-filter: blur(16px);
-        border: 1px solid rgba(220, 226, 235, 0.8);
+        border: 1px solid var(--border-card);
         border-radius: 16px;
-        padding: 22px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        padding: 24px;
+        box-shadow: var(--shadow-elevation);
         margin-bottom: 20px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .glass-card:hover {
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    }
+        min-height: 480px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }}
 
     /* Decision Badges */
-    .badge-auto {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        color: white;
-        padding: 12px 20px;
+    .decision-badge {{
+        padding: 14px 20px;
         border-radius: 12px;
-        font-size: 1.2rem;
+        color: white !important;
         font-weight: 700;
         display: flex;
         align-items: center;
-        gap: 10px;
-        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
-    }
-    .badge-escalate {
-        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-        color: white;
-        padding: 12px 20px;
-        border-radius: 12px;
-        font-size: 1.2rem;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
-    }
+        gap: 12px;
+        margin-bottom: 14px;
+    }}
+    .decision-badge.auto {{
+        background: var(--badge-auto-bg);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25);
+    }}
+    .decision-badge.escalate {{
+        background: var(--badge-escalate-bg);
+        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.25);
+    }}
 
-    .reply-container {
-        background: #ffffff;
-        border: 1.5px solid #0071e3;
-        border-radius: 14px;
-        padding: 18px;
-        font-size: 1.05rem;
+    /* Reply Output Box */
+    .reply-card {{
+        background: var(--input-bg);
+        border: 1.5px solid var(--accent-blue);
+        border-radius: 12px;
+        padding: 16px 18px;
+        font-size: 1.02rem;
         line-height: 1.6;
-        color: #1d1d1f;
-        box-shadow: 0 4px 15px rgba(0, 113, 227, 0.08);
-    }
+        color: var(--text-primary);
+        margin-bottom: 16px;
+    }}
 
-    .evidence-item {
-        background: #f8fafc;
-        border-left: 4px solid #0071e3;
+    /* Evidence Box */
+    .evidence-box {{
+        background: var(--evidence-bg);
+        border-left: 4px solid var(--accent-blue);
         border-radius: 8px;
-        padding: 14px 18px;
-        margin-bottom: 12px;
-        border-top: 1px solid #edf2f7;
-        border-right: 1px solid #edf2f7;
-        border-bottom: 1px solid #edf2f7;
-    }
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        border-top: 1px solid var(--border-card);
+        border-right: 1px solid var(--border-card);
+        border-bottom: 1px solid var(--border-card);
+    }}
 
-    /* Step Pipeline Graphic */
-    .step-box {
-        background: white;
-        border-radius: 12px;
-        padding: 16px;
+    /* Metric Tiles */
+    .metric-tile {{
+        background: var(--metric-bg);
+        border: 1px solid var(--border-card);
+        border-radius: 10px;
+        padding: 12px 8px;
         text-align: center;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    }
-    .step-number {
+    }}
+    .metric-val {{
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--accent-blue);
+    }}
+    .metric-lbl {{
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+        margin-top: 2px;
+    }}
+
+    /* Step Pipeline Ribbon */
+    .step-pill-box {{
+        background: var(--step-box-bg);
+        border: 1px solid var(--border-card);
+        border-radius: 12px;
+        padding: 14px;
+        text-align: center;
+        box-shadow: var(--shadow-elevation);
+    }}
+    .step-badge {{
         display: inline-block;
-        width: 28px;
-        height: 28px;
-        background: #0071e3;
+        width: 26px;
+        height: 26px;
+        background: var(--accent-blue);
         color: white;
         border-radius: 50%;
         font-weight: 700;
-        font-size: 0.9rem;
-        line-height: 28px;
-        margin-bottom: 6px;
-    }
+        font-size: 0.85rem;
+        line-height: 26px;
+        margin-bottom: 4px;
+    }}
+
+    /* Placeholder Box when no query is executed */
+    .placeholder-card {{
+        background: var(--bg-card);
+        border: 2px dashed var(--border-card);
+        border-radius: 16px;
+        padding: 40px 20px;
+        text-align: center;
+        min-height: 480px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -205,16 +316,16 @@ def load_agent_components():
 
 
 def main():
-    # Glowing Ambient Header
+    # Ambient Glowing Header
     st.markdown("""
     <div class="ambient-header">
         <div class="main-title">🍏 AppleSupport AI — Customer Support Intelligence</div>
-        <div class="main-subtitle">Autonomous Query Triage, Historical Evidence Retrieval, Brand-Grounded Draft Generation & Safety Escalation</div>
+        <div class="main-subtitle">Autonomous Triage, Historical Evidence Retrieval, Brand-Grounded Draft Generation & Safety Escalation</div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
             <div class="status-pill">⚡ Latency: &lt;15ms</div>
             <div class="status-pill">📚 Knowledge Base: 8,000 Verified Resolutions</div>
             <div class="status-pill">🛡️ Deterministic Safety Guardrails: Active</div>
-            <div class="status-pill">🎯 Golden Accuracy: 88.89%</div>
+            <div class="status-pill">🎯 Golden Set Accuracy: 88.89%</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -227,7 +338,7 @@ def main():
 
     # Sidebar Controls
     st.sidebar.markdown("### ⚙️ System Controls")
-    st.sidebar.markdown("<small style='color:#64748b;'>Configure safety thresholds and retrieval depth</small>", unsafe_allow_html=True)
+    st.sidebar.markdown("<small style='color:var(--text-muted);'>Configure safety thresholds and retrieval depth</small>", unsafe_allow_html=True)
     conf_thresh = st.sidebar.slider("Intent Confidence Threshold", 0.40, 0.90, float(config["escalation"]["confidence_threshold"]), 0.05, help="Minimum intent classification confidence required before triggering human escalation.")
     sim_thresh = st.sidebar.slider("Evidence Similarity Threshold", 0.40, 0.85, float(config["escalation"]["similarity_threshold"]), 0.05, help="Minimum cosine similarity required between query and historical brand evidence.")
     top_k = st.sidebar.slider("Retrieved Evidence Count (Top-K)", 1, 5, int(config["retrieval"]["top_k"]))
@@ -238,7 +349,7 @@ def main():
 
     st.sidebar.markdown("---")
     st.sidebar.markdown("### 💡 Interactive Scenario Presets")
-    st.sidebar.markdown("<small style='color:#64748b;'>Select a pre-configured customer inquiry to test:</small>", unsafe_allow_html=True)
+    st.sidebar.markdown("<small style='color:var(--text-muted);'>Select a pre-configured customer inquiry to test:</small>", unsafe_allow_html=True)
     
     sample_queries = {
         "Custom Query (Type your own)": "",
@@ -255,7 +366,7 @@ def main():
     selected_sample = st.sidebar.selectbox("Choose Scenario:", list(sample_queries.keys()))
 
     tab_play, tab_explainer, tab_tax, tab_eval, tab_failures = st.tabs([
-        "🚀 Live Support Agent Playground",
+        "🚀 Live Support Playground",
         "💡 How It Works (Visual Guide)",
         "📑 Intent Taxonomy (8 Categories)",
         "📊 Evaluation & Benchmarks",
@@ -263,51 +374,50 @@ def main():
     ])
 
     with tab_play:
-        # Step-by-Step Architecture Ribbon
-        c_s1, c_s2, c_s3, c_s4 = st.columns(4)
-        with c_s1:
-            st.markdown('<div class="step-box"><div class="step-number">1</div><br><b>Classify Intent</b><br><small style="color:#64748b;">MiniLM + Calibrated LR</small></div>', unsafe_allow_html=True)
-        with c_s2:
-            st.markdown('<div class="step-box"><div class="step-number">2</div><br><b>Retrieve Evidence</b><br><small style="color:#64748b;">Top-K Historical Q&A</small></div>', unsafe_allow_html=True)
-        with c_s3:
-            st.markdown('<div class="step-box"><div class="step-number">3</div><br><b>Generate Draft</b><br><small style="color:#64748b;">Apple Brand Grounding</small></div>', unsafe_allow_html=True)
-        with c_s4:
-            st.markdown('<div class="step-box"><div class="step-number">4</div><br><b>Safety Decision</b><br><small style="color:#64748b;">AUTO-HANDLE vs ESCALATE</small></div>', unsafe_allow_html=True)
+        # Balanced 4-Step Pipeline Ribbon
+        c1, c2, c3, c4 = st.columns(4)
+        with c1:
+            st.markdown('<div class="step-pill-box"><div class="step-badge">1</div><br><b>Classify Intent</b><br><small style="color:var(--text-muted);">MiniLM + Calibrated LR</small></div>', unsafe_allow_html=True)
+        with c2:
+            st.markdown('<div class="step-pill-box"><div class="step-badge">2</div><br><b>Retrieve Evidence</b><br><small style="color:var(--text-muted);">Top-K Historical Q&A</small></div>', unsafe_allow_html=True)
+        with c3:
+            st.markdown('<div class="step-pill-box"><div class="step-badge">3</div><br><b>Generate Draft</b><br><small style="color:var(--text-muted);">Apple Brand Grounding</small></div>', unsafe_allow_html=True)
+        with c4:
+            st.markdown('<div class="step-pill-box"><div class="step-badge">4</div><br><b>Safety Decision</b><br><small style="color:var(--text-muted);">AUTO-HANDLE vs ESCALATE</small></div>', unsafe_allow_html=True)
         
         st.markdown("<br>", unsafe_allow_html=True)
 
-        col_in, col_out = st.columns([1, 1], gap="large")
+        # Equal-width, balanced 2-column layout
+        col_left, col_right = st.columns([1, 1], gap="large")
 
-        with col_in:
-            st.markdown("### 📥 Incoming Customer Query")
+        # Session state for query persistence
+        if "analyzed_data" not in st.session_state:
+            st.session_state.analyzed_data = None
+
+        with col_left:
+            st.markdown("### 📥 Customer Inquiry Input")
             default_text = sample_queries[selected_sample] if selected_sample != "Custom Query (Type your own)" else ""
+            
             customer_query = st.text_area(
                 "Customer Message:",
                 value=default_text,
-                height=130,
+                height=150,
                 placeholder="Type any customer tweet (e.g., 'My iPhone battery is draining very fast after iOS 11 update...')"
             )
 
             context_query = st.text_input(
-                "Conversation Context (Optional metadata):",
+                "Conversation Context (Optional):",
                 value="Customer reached out via Twitter @AppleSupport",
                 placeholder="Prior turns or channel details"
             )
 
             analyze_btn = st.button("🚀 Process & Generate Support Draft", type="primary", use_container_width=True)
 
-        with col_out:
-            st.markdown("### 📤 Triage Decision & Agent Draft")
             if analyze_btn and customer_query.strip():
                 with st.spinner("Analyzing semantics, searching historical resolutions, and evaluating safety rules..."):
-                    # 1. Intent Classification
                     pred_intent, conf, prob_dict = classifier.predict_single(customer_query)
-
-                    # 2. Vector Retrieval
                     evidence = retriever.retrieve_evidence(customer_query, predicted_intent=pred_intent)
                     max_sim = retriever.get_max_similarity(evidence)
-
-                    # 3. Escalation Decision
                     esc_res = escalation_policy.evaluate(
                         customer_message=customer_query,
                         predicted_intent=pred_intent,
@@ -315,75 +425,105 @@ def main():
                         evidence=evidence,
                         context=context_query
                     )
-                    decision = esc_res["decision"]
-                    reason = esc_res["reason"]
-
-                    # 4. Draft Generation
                     draft_reply = generator.generate_response(customer_query, pred_intent, evidence, context=context_query)
-
-                    # 5. Quality & Rubric Evaluation
                     resp_metrics = evaluate_response_quality(customer_query, draft_reply, evidence)
-                    judge_eval = judge.judge_response(customer_query, pred_intent, draft_reply, evidence, decision)
+                    judge_eval = judge.judge_response(customer_query, pred_intent, draft_reply, evidence, esc_res["decision"])
 
-                # Decision Header Card
+                    st.session_state.analyzed_data = {
+                        "query": customer_query,
+                        "pred_intent": pred_intent,
+                        "conf": conf,
+                        "evidence": evidence,
+                        "max_sim": max_sim,
+                        "esc_res": esc_res,
+                        "draft_reply": draft_reply,
+                        "judge_eval": judge_eval
+                    }
+
+        with col_right:
+            st.markdown("### 📤 Triage Output & Decision")
+            data = st.session_state.analyzed_data
+
+            if data is not None and data["query"] == customer_query:
+                decision = data["esc_res"]["decision"]
+                reason = data["esc_res"]["reason"]
+                conf = data["conf"]
+                max_sim = data["max_sim"]
+                judge_eval = data["judge_eval"]
+
+                # 1. Decision Banner
                 if decision == "AUTO_HANDLE":
                     st.markdown(f"""
-                    <div class="badge-auto">
-                        <span>✅</span>
+                    <div class="decision-badge auto">
+                        <span style="font-size: 1.6rem;">✅</span>
                         <div>
-                            <div>AUTO-HANDLE (Safe for Automated Dispatch)</div>
+                            <div style="font-size: 1.15rem;">AUTO-HANDLE (Automated Dispatch Approved)</div>
                             <div style="font-size: 0.85rem; font-weight: 400; opacity: 0.95;">High intent certainty ({conf*100:.1f}%) and strong historical precedent ({max_sim:.2f})</div>
                         </div>
                     </div>
                     """, unsafe_allow_html=True)
                 else:
                     st.markdown(f"""
-                    <div class="badge-escalate">
-                        <span>⚠️</span>
+                    <div class="decision-badge escalate">
+                        <span style="font-size: 1.6rem;">⚠️</span>
                         <div>
-                            <div>ESCALATE TO HUMAN SPECIALIST</div>
-                            <div style="font-size: 0.85rem; font-weight: 400; opacity: 0.95;">Safety rule triggered: <b>{esc_res.get('rule_triggered', 'SAFETY_POLICY')}</b></div>
+                            <div style="font-size: 1.15rem;">ESCALATE TO HUMAN SPECIALIST</div>
+                            <div style="font-size: 0.85rem; font-weight: 400; opacity: 0.95;">Safety rule triggered: <b>{data['esc_res'].get('rule_triggered', 'SAFETY_POLICY')}</b></div>
                         </div>
                     </div>
                     """, unsafe_allow_html=True)
 
-                st.markdown(f"<p style='margin-top: 10px; color: #475569;'><b>Triage Explanation:</b> {reason}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p style='color: var(--text-secondary); margin-bottom: 12px;'><b>Triage Explanation:</b> {reason}</p>", unsafe_allow_html=True)
 
-                # Classification Meter
-                st.markdown(f"**Predicted Intent Category:** `{pred_intent}`")
+                # 2. Predicted Intent & Confidence Meter
+                st.markdown(f"**Predicted Intent:** `{data['pred_intent']}`")
                 st.progress(conf, text=f"Classification Confidence: {conf*100:.1f}%")
 
-                # Draft Response Card
+                # 3. Grounded Draft Response
                 st.markdown("#### 💬 Grounded Draft Reply")
-                st.markdown(f'<div class="reply-container">{draft_reply}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="reply-card">{data["draft_reply"]}</div>', unsafe_allow_html=True)
 
-                # Rubric Scorecard
+                # 4. Multi-Dimensional Quality Rubric (Equal 5 Tiles)
                 st.markdown("#### 🏅 Multi-Dimensional Quality Rubric")
-                m1, m2, m3, m4, m5 = st.columns(5)
-                m1.metric("Groundedness", f"{judge_eval.get('groundedness', 5)}/5")
-                m2.metric("Relevance", f"{judge_eval.get('relevance', 5)}/5")
-                m3.metric("Helpfulness", f"{judge_eval.get('helpfulness', 5)}/5")
-                m4.metric("Brand Tone", f"{judge_eval.get('brand_consistency', 5)}/5")
-                m5.metric("Factuality", f"{judge_eval.get('factuality', 5)}/5")
+                t1, t2, t3, t4, t5 = st.columns(5)
+                with t1:
+                    st.markdown(f'<div class="metric-tile"><div class="metric-val">{judge_eval.get("groundedness", 5)}/5</div><div class="metric-lbl">Grounded</div></div>', unsafe_allow_html=True)
+                with t2:
+                    st.markdown(f'<div class="metric-tile"><div class="metric-val">{judge_eval.get("relevance", 5)}/5</div><div class="metric-lbl">Relevant</div></div>', unsafe_allow_html=True)
+                with t3:
+                    st.markdown(f'<div class="metric-tile"><div class="metric-val">{judge_eval.get("helpfulness", 5)}/5</div><div class="metric-lbl">Helpful</div></div>', unsafe_allow_html=True)
+                with t4:
+                    st.markdown(f'<div class="metric-tile"><div class="metric-val">{judge_eval.get("brand_consistency", 5)}/5</div><div class="metric-lbl">Brand Tone</div></div>', unsafe_allow_html=True)
+                with t5:
+                    st.markdown(f'<div class="metric-tile"><div class="metric-val">{judge_eval.get("factuality", 5)}/5</div><div class="metric-lbl">Factual</div></div>', unsafe_allow_html=True)
 
-                # Retrieved Evidence Expander
-                with st.expander(f"📚 Retrieved Historical Brand Resolutions ({len(evidence)} verified examples, Max Sim: {max_sim:.2f})", expanded=False):
-                    for idx, ev in enumerate(evidence, 1):
+                # 5. Retrieved Evidence Expander
+                with st.expander(f"📚 Retrieved Historical Resolutions ({len(data['evidence'])} verified cases, Max Sim: {max_sim:.2f})", expanded=False):
+                    for idx, ev in enumerate(data["evidence"], 1):
                         st.markdown(f"""
-                        <div class="evidence-item">
-                            <div style="display:flex; justify-content:space-between; margin-bottom: 6px;">
+                        <div class="evidence-box">
+                            <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
                                 <b>Resolution Evidence #{idx}</b>
-                                <span style="background:#e0f2fe; color:#0284c7; padding: 2px 8px; border-radius:12px; font-size:0.8rem; font-weight:600;">
+                                <span style="background:rgba(56, 189, 248, 0.2); color:var(--accent-blue); padding: 2px 8px; border-radius:12px; font-size:0.8rem; font-weight:600;">
                                     Similarity: {ev.get('similarity_score', 0):.2f}
                                 </span>
                             </div>
-                            <div style="color:#64748b; font-size:0.9rem; margin-bottom: 6px;"><i>Customer Query:</i> "{ev.get('customer_message', '')}"</div>
-                            <div style="color:#0f172a; font-size:0.95rem;"><b>Official AppleSupport Reply:</b> "{ev.get('support_response', '')}"</div>
+                            <div style="color:var(--text-muted); font-size:0.88rem; margin-bottom: 4px;"><i>Query:</i> "{ev.get('customer_message', '')}"</div>
+                            <div style="color:var(--text-primary); font-size:0.94rem;"><b>AppleSupport:</b> "{ev.get('support_response', '')}"</div>
                         </div>
                         """, unsafe_allow_html=True)
 
-            elif analyze_btn:
-                st.warning("Please enter a customer message to analyze.")
+            else:
+                # Beautiful Empty State Card
+                st.markdown("""
+                <div class="placeholder-card">
+                    <div style="font-size: 3.2rem; margin-bottom: 12px;">🍏</div>
+                    <div style="font-size: 1.25rem; font-weight: 700; margin-bottom: 6px; color: var(--text-primary);">Awaiting Customer Inquiry</div>
+                    <div style="font-size: 0.95rem; color: var(--text-muted); max-width: 340px;">
+                        Select a preset scenario on the left or type a custom query, then click <b>Process & Generate Support Draft</b>.
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
 
     with tab_explainer:
         st.subheader("💡 How This AI Customer Support Agent Works (In Plain English)")

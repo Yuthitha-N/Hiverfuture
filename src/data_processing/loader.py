@@ -25,6 +25,17 @@ def download_or_load_raw_data(config: Dict[str, Any]) -> pd.DataFrame:
         logger.info(f"Loading cached raw data from {raw_file}")
         return pd.read_parquet(raw_file)
 
+    # Check local twcs.csv from extracted archive
+    twcs_csv = raw_dir / "twcs" / "twcs.csv"
+    if not twcs_csv.exists():
+        twcs_csv = raw_dir / "twcs.csv"
+
+    if twcs_csv.exists():
+        logger.info(f"Loading raw Kaggle dataset from {twcs_csv}")
+        df = pd.read_csv(twcs_csv)
+        logger.info(f"Loaded {len(df)} rows from {twcs_csv}")
+        return df
+
     logger.info(f"Fetching dataset from Hugging Face: {config['data']['hf_repo']}")
     hf_path = hf_hub_download(
         repo_id=config["data"]["hf_repo"],

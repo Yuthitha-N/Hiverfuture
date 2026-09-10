@@ -6,3 +6,5 @@ __pycache__/
 venv/
 .venv/
 data/raw/conversations_raw.parquet
+data/raw/twcs/
+*.zip

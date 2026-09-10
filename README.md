@@ -1,22 +1,28 @@
 # Hiver Future — AI Customer Support Agent for AppleSupport
 
+### 🚀 Live Deployed Application
+👉 **[https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app](https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app/)**
+
+[![Streamlit App](https://img.shields.io/badge/Streamlit%20App-Live%20Demo-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Yuthitha--N%2FHiverfuture-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Yuthitha-N/Hiverfuture)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Tests Passing](https://img.shields.io/badge/tests-12%20passed-brightgreen.svg)]()
 [![Reproducible <15min](https://img.shields.io/badge/reproducible-%3C15%20min-success.svg)]()
-[![Streamlit App](https://img.shields.io/badge/Streamlit%20App-Live-FF4B4B.svg)](https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Yuthitha--N%2FHiverfuture-181717.svg)](https://github.com/Yuthitha-N/Hiverfuture)
+
+> **Live Production Demo**: The autonomous AppleSupport AI triage platform is fully deployed and accessible online at **[https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app](https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app/)**.
+
+---
+
+## 🌐 Quick Access Links
+- **🚀 Live Web App Deployment**: [https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app](https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app/)
+- **📂 Public GitHub Repository**: [https://github.com/Yuthitha-N/Hiverfuture](https://github.com/Yuthitha-N/Hiverfuture)
+- **💻 Local Dev App**: `http://localhost:8501` (via `streamlit run app/streamlit_app.py`)
+
+---
 
 An end-to-end, production-grade, and explainable AI Customer Support Agent built for **AppleSupport** using the Kaggle *Customer Support on Twitter* dataset (`thoughtvector/customer-support-on-twitter`).
 
 The system ingests customer tweets, classifies their support intent into 8 domain-grounded categories, retrieves historically similar brand resolutions using semantic embeddings, drafts grounded replies strictly following Apple brand tone, and enforces a deterministic multi-factor policy to decide between **`AUTO_HANDLE`** and **`ESCALATE_TO_HUMAN`**.
-
----
-
-## 🌐 Live Deployment & Interactive Demo
-
-- **Live Deployed Web App**: [https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app](https://yuthitha-n-hiverfuture-appstreamlit-app-rlqrgq.streamlit.app)
-- **GitHub Repository**: [https://github.com/Yuthitha-N/Hiverfuture](https://github.com/Yuthitha-N/Hiverfuture)
-- **Local Dev Server**: `http://localhost:8501` (via `streamlit run app/streamlit_app.py`)
 
 ---
 

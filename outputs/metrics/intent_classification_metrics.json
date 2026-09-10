@@ -1,0 +1,422 @@
+{
+  "baseline_1_majority": {
+    "model_name": "Baseline 1 (Majority)",
+    "accuracy": 0.569,
+    "macro_precision": 0.0711,
+    "macro_recall": 0.125,
+    "macro_f1": 0.0907,
+    "weighted_f1": 0.4127,
+    "per_class_metrics": {
+      "app_store_billing_subscriptions": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "support": 23
+      },
+      "apple_id_account_security": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "support": 41
+      },
+      "battery_performance": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "support": 167
+      },
+      "connectivity_network_bluetooth": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "support": 56
+      },
+      "data_sync_backup_icloud": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "support": 35
+      },
+      "device_hardware_display": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "support": 51
+      },
+      "general_inquiry_features": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "support": 489
+      },
+      "ios_software_update": {
+        "precision": 0.569,
+        "recall": 1.0,
+        "f1_score": 0.7253,
+        "support": 1138
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        23
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        41
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        167
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        56
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        35
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        51
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        489
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1138
+      ]
+    ]
+  },
+  "baseline_2_tfidf_lr": {
+    "model_name": "Baseline 2 (TF-IDF + LR)",
+    "accuracy": 0.8125,
+    "macro_precision": 0.6739,
+    "macro_recall": 0.7368,
+    "macro_f1": 0.6936,
+    "weighted_f1": 0.8206,
+    "per_class_metrics": {
+      "app_store_billing_subscriptions": {
+        "precision": 0.7895,
+        "recall": 0.6522,
+        "f1_score": 0.7143,
+        "support": 23
+      },
+      "apple_id_account_security": {
+        "precision": 0.6829,
+        "recall": 0.6829,
+        "f1_score": 0.6829,
+        "support": 41
+      },
+      "battery_performance": {
+        "precision": 0.6682,
+        "recall": 0.8443,
+        "f1_score": 0.746,
+        "support": 167
+      },
+      "connectivity_network_bluetooth": {
+        "precision": 0.4512,
+        "recall": 0.6607,
+        "f1_score": 0.5362,
+        "support": 56
+      },
+      "data_sync_backup_icloud": {
+        "precision": 0.6765,
+        "recall": 0.6571,
+        "f1_score": 0.6667,
+        "support": 35
+      },
+      "device_hardware_display": {
+        "precision": 0.407,
+        "recall": 0.6863,
+        "f1_score": 0.5109,
+        "support": 51
+      },
+      "general_inquiry_features": {
+        "precision": 0.7366,
+        "recall": 0.9264,
+        "f1_score": 0.8207,
+        "support": 489
+      },
+      "ios_software_update": {
+        "precision": 0.9792,
+        "recall": 0.7847,
+        "f1_score": 0.8712,
+        "support": 1138
+      }
+    },
+    "confusion_matrix": [
+      [
+        15,
+        0,
+        0,
+        0,
+        0,
+        1,
+        7,
+        0
+      ],
+      [
+        0,
+        28,
+        0,
+        0,
+        2,
+        1,
+        10,
+        0
+      ],
+      [
+        2,
+        1,
+        141,
+        2,
+        0,
+        4,
+        9,
+        8
+      ],
+      [
+        0,
+        1,
+        2,
+        37,
+        0,
+        1,
+        11,
+        4
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        23,
+        1,
+        10,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        35,
+        16,
+        0
+      ],
+      [
+        1,
+        5,
+        2,
+        6,
+        3,
+        12,
+        453,
+        7
+      ],
+      [
+        1,
+        5,
+        66,
+        37,
+        6,
+        31,
+        99,
+        893
+      ]
+    ]
+  },
+  "main_embedding_classifier": {
+    "model_name": "Main Model (Embedding + LR)",
+    "accuracy": 0.742,
+    "macro_precision": 0.525,
+    "macro_recall": 0.7369,
+    "macro_f1": 0.5907,
+    "weighted_f1": 0.7635,
+    "per_class_metrics": {
+      "app_store_billing_subscriptions": {
+        "precision": 0.3947,
+        "recall": 0.6522,
+        "f1_score": 0.4918,
+        "support": 23
+      },
+      "apple_id_account_security": {
+        "precision": 0.4615,
+        "recall": 0.7317,
+        "f1_score": 0.566,
+        "support": 41
+      },
+      "battery_performance": {
+        "precision": 0.5882,
+        "recall": 0.8383,
+        "f1_score": 0.6914,
+        "support": 167
+      },
+      "connectivity_network_bluetooth": {
+        "precision": 0.2984,
+        "recall": 0.6607,
+        "f1_score": 0.4111,
+        "support": 56
+      },
+      "data_sync_backup_icloud": {
+        "precision": 0.4167,
+        "recall": 0.7143,
+        "f1_score": 0.5263,
+        "support": 35
+      },
+      "device_hardware_display": {
+        "precision": 0.3233,
+        "recall": 0.8431,
+        "f1_score": 0.4674,
+        "support": 51
+      },
+      "general_inquiry_features": {
+        "precision": 0.7598,
+        "recall": 0.7117,
+        "f1_score": 0.735,
+        "support": 489
+      },
+      "ios_software_update": {
+        "precision": 0.957,
+        "recall": 0.7434,
+        "f1_score": 0.8368,
+        "support": 1138
+      }
+    },
+    "confusion_matrix": [
+      [
+        15,
+        0,
+        0,
+        0,
+        0,
+        3,
+        4,
+        1
+      ],
+      [
+        1,
+        30,
+        0,
+        0,
+        2,
+        2,
+        6,
+        0
+      ],
+      [
+        4,
+        0,
+        140,
+        6,
+        0,
+        7,
+        2,
+        8
+      ],
+      [
+        0,
+        4,
+        2,
+        37,
+        3,
+        2,
+        3,
+        5
+      ],
+      [
+        0,
+        2,
+        0,
+        0,
+        25,
+        0,
+        7,
+        1
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        43,
+        7,
+        0
+      ],
+      [
+        12,
+        17,
+        5,
+        28,
+        13,
+        43,
+        348,
+        23
+      ],
+      [
+        6,
+        11,
+        91,
+        53,
+        17,
+        33,
+        81,
+        846
+      ]
+    ]
+  }
+}

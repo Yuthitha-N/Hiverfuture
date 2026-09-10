@@ -1,0 +1,51 @@
+{
+  "num_calibration_samples": 10,
+  "mean_absolute_error": 0.61,
+  "agreement_rate_within_half_point": 0.4,
+  "pearson_correlation": 0.011,
+  "avg_human_score": 4.69,
+  "avg_judge_score": 4.08,
+  "num_disagreements": 4,
+  "disagreements": [
+    {
+      "case_id": "calib_03",
+      "customer_message": "How do I downgrade to iOS 10?",
+      "draft_response": "Apple does not support downgrading to previous iOS versions once signing stops. Let us know what issue you are experiencing so we can troubleshoot.",
+      "human_score": 4.9,
+      "judge_score": 3.8,
+      "difference": 1.1,
+      "human_notes": "Truthful policy explanation without false promises.",
+      "judge_reasoning": "Grounded in top evidence (0.00 sim). Clear steps provided with polite Apple tone."
+    },
+    {
+      "case_id": "calib_05",
+      "customer_message": "I lost my AirPods case in a taxi. Can I track the case with Find My?",
+      "draft_response": "Unfortunately, the standalone charging case cannot be tracked with Find My on this model. You can purchase a replacement case at Apple Store.",
+      "human_score": 4.7,
+      "judge_score": 3.8,
+      "difference": 0.9,
+      "human_notes": "Factually accurate hardware limitation.",
+      "judge_reasoning": "Grounded in top evidence (0.00 sim). Clear steps provided with polite Apple tone."
+    },
+    {
+      "case_id": "calib_06",
+      "customer_message": "Will Apple replace my screen for free if I dropped it on concrete?",
+      "draft_response": "Accidental physical damage is not covered under the standard Apple 1-year limited warranty, but may be eligible for AppleCare+ incident fee.",
+      "human_score": 4.8,
+      "judge_score": 3.6,
+      "difference": 1.2,
+      "human_notes": "Clear warranty boundary explanation.",
+      "judge_reasoning": "Grounded in top evidence (0.00 sim). Clear steps provided with polite Apple tone."
+    },
+    {
+      "case_id": "calib_10",
+      "customer_message": "My Wi-Fi keeps disconnecting every few seconds.",
+      "draft_response": "Let's fix that connection. Try resetting network settings in Settings > General > Reset > Reset Network Settings and restart your router.",
+      "human_score": 4.8,
+      "judge_score": 4.0,
+      "difference": 0.8,
+      "human_notes": "Standard resolution path.",
+      "judge_reasoning": "Grounded in top evidence (0.00 sim). Clear steps provided with polite Apple tone."
+    }
+  ]
+}

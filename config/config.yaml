@@ -1,0 +1,82 @@
+# Configuration for AI Customer Support Agent (AppleSupport)
+
+project:
+  name: "hiver-ai-support-agent"
+  brand: "AppleSupport"
+  random_seed: 42
+
+data:
+  hf_repo: "TNE-AI/customer-support-on-twitter-conversation"
+  hf_filename: "data/train-00000-of-00001.parquet"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  taxonomy_path: "config/intent_taxonomy.json"
+  golden_set_path: "data/golden/golden_evaluation_set.json"
+  sample_size: 10000
+  train_split: 0.8
+  min_text_length: 15
+  max_text_length: 500
+
+embeddings:
+  model_name: "all-MiniLM-L6-v2"
+  device: "cpu"
+  batch_size: 64
+  normalize: true
+
+retrieval:
+  top_k: 3
+  similarity_threshold: 0.55
+  intent_filtering: true
+  index_path: "outputs/retrieval_index.npz"
+
+classification:
+  model_type: "embedding_logistic_regression"
+  baseline_trivial: "majority_class"
+  baseline_simple: "tfidf_logistic_regression"
+  confidence_threshold: 0.65
+  saved_model_path: "outputs/intent_classifier.joblib"
+
+escalation:
+  confidence_threshold: 0.65
+  similarity_threshold: 0.55
+  sensitive_keywords:
+    - "fraud"
+    - "scam"
+    - "unauthorized"
+    - "hacked"
+    - "stolen"
+    - "lawyer"
+    - "legal"
+    - "sue"
+    - "court"
+    - "police"
+    - "locked out of apple id"
+    - "security breach"
+    - "identity theft"
+    - "financial loss"
+  human_agent_triggers:
+    - "human"
+    - "agent"
+    - "representative"
+    - "real person"
+    - "supervisor"
+    - "manager"
+    - "talk to someone"
+    - "speak with someone"
+
+generation:
+  max_tokens: 200
+  temperature: 0.2
+  brand_name: "Apple Support"
+  tone: "empathetic, concise, professional, step-by-step"
+
+evaluation:
+  metrics_dir: "outputs/metrics"
+  figures_dir: "outputs/figures"
+  evaluations_dir: "outputs/evaluations"
+  rubric_dimensions:
+    - "groundedness"
+    - "relevance"
+    - "helpfulness"
+    - "brand_consistency"
+    - "factuality"

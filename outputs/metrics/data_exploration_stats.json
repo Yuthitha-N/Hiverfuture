@@ -1,0 +1,19 @@
+{
+  "total_conversations_all_brands": 794335,
+  "applesupport_total_in_raw": 76639,
+  "processed_clean_sample": 10000,
+  "train_set_size": 8000,
+  "validation_set_size": 2000,
+  "avg_customer_msg_words": 18.1,
+  "avg_support_resp_words": 19.71,
+  "intent_distribution": {
+    "ios_software_update": 5724,
+    "general_inquiry_features": 2502,
+    "battery_performance": 796,
+    "device_hardware_display": 291,
+    "connectivity_network_bluetooth": 272,
+    "data_sync_backup_icloud": 176,
+    "apple_id_account_security": 157,
+    "app_store_billing_subscriptions": 82
+  }
+}

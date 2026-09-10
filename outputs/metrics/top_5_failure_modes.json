@@ -1,0 +1,58 @@
+{
+  "total_evaluated": 180,
+  "total_intent_misclassifications": 20,
+  "total_escalation_mismatches": 66,
+  "total_retrieval_under_threshold": 2,
+  "top_5_failure_modes": [
+    {
+      "rank": 1,
+      "category": "Compound / Multi-Intent Inquiries",
+      "description": "Customer message mentions both an iOS update and battery drain simultaneously. The single-label classifier picks one intent, omitting troubleshooting for the second symptom.",
+      "real_example": "Someone from another state is trying to log into my iCloud account and I got a prompt on my screen.",
+      "expected_behavior": "Acknowledge both iOS 11 indexing and provide dual battery + update diagnostic advice.",
+      "actual_behavior": "Classified as 'data_sync_backup_icloud' instead of 'apple_id_account_security'.",
+      "likely_cause": "Single-label classification architecture on multi-symptom customer tweets.",
+      "possible_improvement": "Implement multi-label classification or hierarchical intent routing for compound queries."
+    },
+    {
+      "rank": 2,
+      "category": "False Escalation on High Emotion / Slang",
+      "description": "Customer uses strong words expressing frustration (e.g., 'this update is garbage, help!') triggering ambiguity thresholds even when the underlying technical issue is routine.",
+      "real_example": "Apple your latest update is complete trash, fix my keyboard lag now!",
+      "expected_behavior": "AUTO_HANDLE with keyboard dictionary reset steps.",
+      "actual_behavior": "ESCALATED_TO_HUMAN due to aggressive sentiment / low keyword match score.",
+      "likely_cause": "Escalation rules penalizing emotional tweets without separating sentiment from technical intent.",
+      "possible_improvement": "Decouple sentiment analysis from technical triage; escalate only on genuine security/safety/legal risks."
+    },
+    {
+      "rank": 3,
+      "category": "Hardware Model Specificity Mismatch in Retrieval",
+      "description": "Customer mentions a newer device model (e.g. iPhone X gestures), but vector retrieval surfaces historical resolution from older devices (e.g. iPhone 6 Home button).",
+      "real_example": "How do I force restart iPhone X when the screen is frozen?",
+      "expected_behavior": "Retrieve Volume Up > Volume Down > Side button sequence for iPhone X.",
+      "actual_behavior": "Retrieved Home + Power button combination for iPhone 6s.",
+      "likely_cause": "Embedding semantic search matching 'force restart frozen screen' strongly without hard filtering on hardware model generation.",
+      "possible_improvement": "Add entity extraction for device model (e.g. iPhone X vs iPhone 7) and apply hard metadata filters during vector retrieval."
+    },
+    {
+      "rank": 4,
+      "category": "Under-Specified / Ultra-Short Queries",
+      "description": "Customer tweets 2-3 words like 'Phone broke' or 'Need help asap'. System cannot ascertain intent reliably.",
+      "real_example": "Help it broke",
+      "expected_behavior": "ESCALATE to human or trigger structured interactive clarification prompt.",
+      "actual_behavior": "ESCALATED with reason: 'Ambiguous query lacking diagnostic context'.",
+      "likely_cause": "Lack of customer information in Twitter one-liners.",
+      "possible_improvement": "Deploy an automated clarifying probing question asking for device model and exact symptom."
+    },
+    {
+      "rank": 5,
+      "category": "Sub-Domain Terminology Shift",
+      "description": "Customer refers to emerging feature names or non-standard slang ('AirDrop not finding my friend') overlapping with Bluetooth connectivity.",
+      "real_example": "AirDrop won't discover my friend's iPhone nearby.",
+      "expected_behavior": "Classify as connectivity_network_bluetooth with AirDrop receiving setting checks.",
+      "actual_behavior": "Low intent confidence causing fallback escalation.",
+      "likely_cause": "AirDrop combines Bluetooth, Wi-Fi, and Contacts permissions, confusing single-intent boundaries.",
+      "possible_improvement": "Expand intent taxonomy synonym dictionary to explicitly map AirDrop / Personal Hotspot / AirPlay to network intents."
+    }
+  ]
+}

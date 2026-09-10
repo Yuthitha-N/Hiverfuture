@@ -1,0 +1,92 @@
+{
+  "intents": [
+    {
+      "intent": "ios_software_update",
+      "description": "Issues related to iOS, iPadOS, or watchOS updates, installation errors, system bugs, boot loops, or lag after an OS update.",
+      "keywords": ["update", "ios", "ios 11", "ios 12", "version", "installing update", "update failed", "frozen on apple logo", "lag after update", "storage full update"],
+      "examples": [
+        "Ever since I updated to iOS 11.1 my iPhone has been freezing constantly.",
+        "My iPad won't finish downloading the latest software update. It gets stuck on verifying.",
+        "How do I downgrade back to iOS 10? The new update ruined my battery and keyboard."
+      ],
+      "historical_frequency_pct": 18.5
+    },
+    {
+      "intent": "battery_performance",
+      "description": "Complaints regarding battery drain, degradation, unexpected shutdowns, slow charging, or overheating.",
+      "keywords": ["battery", "battery health", "drain", "draining", "charge", "charger", "charging", "shutdown", "overheating", "percent drop"],
+      "examples": [
+        "My iPhone 7 battery drops from 80% to 20% in less than an hour of normal use.",
+        "Phone suddenly turned off with 30% battery left and won't turn back on without charging.",
+        "Is there a battery replacement program for iPhone 6s? My battery health is at 72%."
+      ],
+      "historical_frequency_pct": 16.2
+    },
+    {
+      "intent": "apple_id_account_security",
+      "description": "Apple ID login problems, password reset, two-factor authentication (2FA), locked or disabled accounts, and account recovery.",
+      "keywords": ["apple id", "password", "locked", "disabled", "two-factor", "2fa", "verification code", "security question", "account recovery", "reset password"],
+      "examples": [
+        "My Apple ID has been locked for security reasons and I can't receive the verification SMS.",
+        "Forgot my Apple ID password and the recovery email is an old address I no longer have access to.",
+        "Keep getting prompted to enter Apple ID password repeatedly every 5 minutes."
+      ],
+      "historical_frequency_pct": 14.8
+    },
+    {
+      "intent": "app_store_billing_subscriptions",
+      "description": "App Store purchase issues, unauthorized credit card charges, refund requests, subscription cancellations, or payment method declines.",
+      "keywords": ["charged", "charge", "billing", "refund", "subscription", "cancel subscription", "receipt", "unauthorized charge", "payment declined", "in-app purchase", "itunes bill"],
+      "examples": [
+        "I was charged $9.99 for a subscription I cancelled during the free trial. How can I get a refund?",
+        "Why was my card charged twice for an App Store game purchase?",
+        "My payment method was declined but my card has sufficient funds. Please help fix my billing info."
+      ],
+      "historical_frequency_pct": 13.6
+    },
+    {
+      "intent": "connectivity_network_bluetooth",
+      "description": "Problems connecting to Wi-Fi, Bluetooth devices (AirPods, Apple Watch), cellular data dropping, or 'No SIM' errors.",
+      "keywords": ["wifi", "wi-fi", "bluetooth", "cellular", "data", "no service", "no sim", "airpods disconnect", "pairing", "dropping calls", "hotspot"],
+      "examples": [
+        "My iPhone keeps saying 'No SIM Card Installed' even though the SIM is inside.",
+        "AirPods keep disconnecting during calls every 2 minutes.",
+        "Wi-Fi toggle is greyed out in settings and I cannot connect to any wireless network."
+      ],
+      "historical_frequency_pct": 12.4
+    },
+    {
+      "intent": "device_hardware_display",
+      "description": "Physical device issues including cracked screens, unresponsive touchscreens, camera glitches, microphone/speaker failures, or physical damage repair queries.",
+      "keywords": ["screen", "display", "touch screen", "unresponsive", "ghost touch", "camera black", "speaker", "microphone", "repair", "cracked", "lines on screen"],
+      "examples": [
+        "The touchscreen on my iPhone 8 isn't responding to touches at the bottom corner.",
+        "My rear camera only shows a black screen when opening the camera app.",
+        "How much does it cost to replace a cracked iPhone X screen at the Apple Store?"
+      ],
+      "historical_frequency_pct": 9.7
+    },
+    {
+      "intent": "data_sync_backup_icloud",
+      "description": "iCloud backup failures, storage full alerts, photos not syncing across devices, contacts missing, or data transfer between iPhones.",
+      "keywords": ["icloud", "backup", "icloud storage", "restore", "photos not syncing", "transfer data", "not enough storage", "syncing"],
+      "examples": [
+        "My iPhone won't complete an iCloud backup because it says not enough storage available.",
+        "Photos taken on my iPhone are not syncing to my Mac via iCloud Photo Library.",
+        "Trying to transfer my data from my old iPhone 6 to my new iPhone 8 using iTunes backup."
+      ],
+      "historical_frequency_pct": 8.3
+    },
+    {
+      "intent": "general_inquiry_features",
+      "description": "General how-to questions, device compatibility, warranty status, AppleCare inquiries, and standard product information.",
+      "keywords": ["how do i", "how to", "applecare", "warranty", "compatible", "feature", "trade in", "store appointment", "genius bar", "hours"],
+      "examples": [
+        "How do I enable Screen Recording in Control Center on iOS 11?",
+        "Can I trade in my iPhone 6s towards the purchase of a new iPhone 8 in store?",
+        "How do I check if my MacBook is still covered under AppleCare warranty?"
+      ],
+      "historical_frequency_pct": 6.5
+    }
+  ]
+}
